@@ -3,6 +3,7 @@ defmodule Mix.Tasks.Triplex.Migrate do
   require Logger
   import Mix.Ecto
   import Mix.Triplex
+  import Mix.EctoSQL
 
   alias Ecto.Adapters.SQL.Sandbox
   alias Ecto.Migrator
@@ -78,7 +79,7 @@ defmodule Mix.Tasks.Triplex.Migrate do
     Enum.each repos, fn repo ->
       ensure_repo(repo, args)
       ensure_tenant_migrations_path(repo)
-      {:ok, pid, apps} = ensure_started(repo, opts)
+      {:ok, pid, apps} = Application.ensure_started(repo, opts)
 
       # If the pool is Ecto.Adapters.SQL.Sandbox,
       # let's make sure we get a connection outside of a sandbox.

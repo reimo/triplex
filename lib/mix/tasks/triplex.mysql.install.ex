@@ -26,8 +26,8 @@ defmodule Mix.Tasks.Triplex.Mysql.Install do
       if repo.__adapter__ != Ecto.Adapters.MySQL do
         Mix.raise "the tenant table only makes sense for MySQL repositories"
       end
-
-      path = Path.relative_to(Mix.Ecto.migrations_path(repo),
+# Mix.Ecto.migrations_path(repo)
+      path = Path.relative_to(Ecto.Migrator.migrations_path(repo),
                               Project.app_path)
       file = Path.join(path, "#{timestamp()}_#{@migration_name}.exs")
       create_directory path

@@ -1,6 +1,8 @@
 defmodule Mix.Tasks.Triplex.Migrations do
   use Mix.Task
   import Mix.Ecto
+  # import Mix.EctoSQL
+
   import Mix.Triplex
 
   alias Ecto.Migrator
@@ -40,7 +42,7 @@ defmodule Mix.Tasks.Triplex.Migrations do
     result = Enum.map(repos, fn repo ->
       ensure_repo(repo, args)
       ensure_tenant_migrations_path(repo)
-      {:ok, pid, _} = ensure_started(repo, all: true)
+      {:ok, pid, _} = Application.ensure_started(repo, all: true)
 
       migration_lists = migrations.(repo, Mix.Triplex.migrations_path(repo))
       tenant_state = Enum.map_join(Triplex.all(repo), fn tenant ->
@@ -51,7 +53,7 @@ defmodule Mix.Tasks.Triplex.Migrations do
           if Enum.member? tenant_versions, ts do
             {:up, ts, desc}
           else
-            {:down, ts, desc}              
+            {:down, ts, desc}
           end
         end
         """

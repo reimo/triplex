@@ -48,9 +48,10 @@ defmodule Triplex.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:ecto, "~> 2.2"},
-      {:postgrex, ">= 0.11.0"},
-      {:mariaex, "~> 0.8.2", optional: true},
+      {:ecto_sql, "~> 3.0"},
+      {:jason, "~> 1.0"},
+      {:postgrex, ">= 0.14.1"},
+      {:mariaex, "~> 0.8.4", optional: true},
       {:plug, "~> 1.6", optional: true},
       {:ex_doc, ">= 0.0.0", only: :dev},
       {:inch_ex, only: :docs},

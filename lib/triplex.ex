@@ -23,7 +23,7 @@ defmodule Triplex do
   alias Ecto.Adapters.SQL
   alias Ecto.Migrator
   alias Postgrex.Error, as: PGError
-  alias Mariaex.Error, as: MXError
+  # alias Mariaex.Error, as: MXError
 
   @doc """
   Returns a `%Triplex.Config{}` struct with all the args loaded from the app
@@ -117,7 +117,7 @@ defmodule Triplex do
         {:ok, tenant}
       else
         {:error, %PGError{} = e} -> {:error, PGError.message(e)}
-        {:error, %MXError{} = e} -> {:error, MXError.message(e)}
+        # {:error, %MXError{} = e} -> {:error, MXError.message(e)}
         {:error, msg} -> {:error, msg}
       end
     end
@@ -170,8 +170,8 @@ defmodule Triplex do
       else
         {:error, %PGError{} = e} ->
           {:error, PGError.message(e)}
-        {:error, %MXError{} = e} ->
-          {:error, MXError.message(e)}
+        # {:error, %MXError{} = e} ->
+          # {:error, MXError.message(e)}
       end
     end
   end
@@ -200,8 +200,8 @@ defmodule Triplex do
           {:ok, new_tenant}
         {:error, %PGError{} = e} ->
           {:error, PGError.message(e)}
-        {:error, %MXError{} = e} ->
-          {:error, MXError.message(e)}
+        # {:error, %MXError{} = e} ->
+          # {:error, MXError.message(e)}
       end
     end
   end
@@ -270,8 +270,8 @@ defmodule Triplex do
     rescue
       e in PGError ->
         {:error, PGError.message(e)}
-      e in MXError ->
-        {:error, MXError.message(e)}
+      # e in MXError ->
+        # {:error, MXError.message(e)}
     after
       Code.compiler_options(ignore_module_conflict: false)
     end
