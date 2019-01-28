@@ -79,7 +79,7 @@ defmodule Mix.Tasks.Triplex.Migrate do
     Enum.each repos, fn repo ->
       ensure_repo(repo, args)
       ensure_tenant_migrations_path(repo)
-      {:ok, pid, apps} = Application.ensure_started(repo, opts)
+      {:ok, pid, apps} = ensure_started(repo, opts)
 
       # If the pool is Ecto.Adapters.SQL.Sandbox,
       # let's make sure we get a connection outside of a sandbox.
@@ -94,7 +94,7 @@ defmodule Mix.Tasks.Triplex.Migrate do
       end
       Code.compiler_options(ignore_module_conflict: false)
 
-      pid && repo.stop(pid)
+      # pid && repo.stop(pid)
       restart_apps_if_migrated(apps, List.flatten(migrated))
     end
   end
